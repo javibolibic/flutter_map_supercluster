@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_supercluster/src/layer/alignment_util.dart';
@@ -15,7 +13,7 @@ class ClusterWidget extends StatelessWidget {
   final ClusterWidgetBuilder builder;
   final VoidCallback onTap;
   final Size size;
-  final Point<double> position;
+  final Offset position;
   final double mapRotationRad;
   final Alignment alignment;
 
@@ -43,8 +41,8 @@ class ClusterWidget extends StatelessWidget {
     return Positioned(
       width: size.width,
       height: size.height,
-      left: position.x,
-      top: position.y,
+      left: position.dx,
+      top: position.dy,
       child: Transform.rotate(
         angle: -mapRotationRad,
         child: GestureDetector(
@@ -61,7 +59,7 @@ class ClusterWidget extends StatelessWidget {
     );
   }
 
-  static Point<double> _getClusterPixel(
+  static Offset _getClusterPixel(
     MapCamera mapCamera,
     LayerCluster<Marker> cluster,
     Alignment alignment,

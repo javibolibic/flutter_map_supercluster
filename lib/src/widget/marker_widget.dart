@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_supercluster/src/layer/alignment_util.dart';
@@ -10,7 +8,7 @@ class MarkerWidget extends StatelessWidget {
   final Marker marker;
   final Widget markerChild;
   final VoidCallback onTap;
-  final Point<double> position;
+  final Offset position;
   final double mapRotationRad;
 
   MarkerWidget({
@@ -25,7 +23,7 @@ class MarkerWidget extends StatelessWidget {
   MarkerWidget.displaced({
     super.key,
     required DisplacedMarker displacedMarker,
-    required Point position,
+    required Offset position,
     required this.markerChild,
     required this.onTap,
     required this.mapRotationRad,
@@ -49,8 +47,8 @@ class MarkerWidget extends StatelessWidget {
       key: ObjectKey(marker),
       width: marker.width,
       height: marker.height,
-      left: position.x,
-      top: position.y,
+      left: position.dx,
+      top: position.dy,
       child: marker.rotate != true
           ? child
           : Transform.rotate(
@@ -60,7 +58,7 @@ class MarkerWidget extends StatelessWidget {
     );
   }
 
-  static Point<double> _getMapPointPixel(
+  static Offset _getMapPointPixel(
     MapCamera mapCamera,
     Marker marker,
   ) {

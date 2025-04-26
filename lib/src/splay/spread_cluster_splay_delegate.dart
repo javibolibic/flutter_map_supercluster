@@ -84,8 +84,8 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
   List<DisplacedMarker> displaceMarkers(
     List<Marker> markers, {
     required LatLng clusterPosition,
-    required Point Function(LatLng latLng) project,
-    required LatLng Function(Point point) unproject,
+    required Offset Function(LatLng latLng) project,
+    required LatLng Function(Offset offset) unproject,
   }) {
     final markersWithAngles = markers
         .map(
@@ -118,8 +118,8 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
   List<DisplacedMarkerOffset> displacedMarkerOffsets(
     List<DisplacedMarker> displacedMarkers,
     double animationProgress,
-    Point<num> Function(LatLng point) getPixelOffset,
-    Point clusterPosition,
+    Offset Function(LatLng point) getPixelOffset,
+    Offset clusterPosition,
   ) {
     return displacedMarkers
         .map(
@@ -156,13 +156,13 @@ class SpreadClusterSplayDelegate extends ClusterSplayDelegate {
     return atan2(y, x);
   }
 
-  static List<Point> _clockwiseCircle(double radius, int count) {
+  static List<Offset> _clockwiseCircle(double radius, int count) {
     final angleStep = pi2 / count;
 
-    return List<Point>.generate(count, (index) {
+    return List<Offset>.generate(count, (index) {
       final angle = circleStartAngle + index * angleStep;
 
-      return Point<double>(
+      return Offset(
         radius * cos(angle),
         radius * sin(angle),
       );
@@ -237,8 +237,8 @@ class _DisplacementPainter extends CustomPainter {
       canvas.drawLine(
         Offset(centerOffset.dx, centerOffset.dy),
         Offset(
-          offset.displacedOffset.x + centerOffset.dx,
-          offset.displacedOffset.y + centerOffset.dy,
+          offset.displacedOffset.dx + centerOffset.dx,
+          offset.displacedOffset.dy + centerOffset.dy,
         ),
         paint,
       );

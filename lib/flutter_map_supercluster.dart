@@ -1,5 +1,3 @@
-library flutter_map_supercluster;
-
 export 'package:flutter_map_marker_popup/extension_api.dart';
 export 'package:supercluster/supercluster.dart';
 
